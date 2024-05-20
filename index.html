@@ -20,7 +20,7 @@
 
     <script>
       // The value below is injected by flutter build, do not touch.
-      const serviceWorkerVersion = "627952919";
+      const serviceWorkerVersion = "2127251242";
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
@@ -82,22 +82,16 @@
     <script>
       var enableFocusIn = true;
       var enableFocusOut = false;
-      var enableFocusTracking = false;
-      if (enableFocusIn) {
-        document.body.addEventListener("focusin", (ev) =>
-          console.log("@focus in, was gained by:", ev.target)
-        );
-      }
-      if (enableFocusOut) {
-        document.body.addEventListener("focusout", (ev) =>
-          console.log("@focus out, will go to:", ev.relatedTarget)
-        );
-      }
-      if (enableFocusTracking) {
-        setInterval(function () {
-          console.log("@active element: ", document.activeElement);
-        }, 1000);
-      }
+      var focused = null;
+      console.log('Mon May 20 10:30:08 2024');
+      document.body.addEventListener("focusin", (ev) =>
+        console.log("@focus in, was gained by:", ev.target)
+      );
+      document.body.addEventListener("focusout", (ev) => {
+        if (!ev.relatedTarget) {
+          console.log("@focus out, will go to:", ev.relatedTarget);
+        }
+      });
 
       const urlParams = new URLSearchParams(window.location.search);
       const embedded = urlParams.has("embedded");
@@ -105,7 +99,7 @@
       if (embedded) {
         options.hostElement = document.querySelector("#flutter");
       } else {
-        document.body.innerHTML = '';
+        document.body.innerHTML = "";
       }
       window.addEventListener("load", function (ev) {
         // Download main.dart.js
